@@ -4,7 +4,9 @@
 #include<vector>
 #include<string>
 #include<fstream>
+#include<set>
 using namespace std;
+//**************************************************VECTOR********************************************
 //структура участника
 struct Participant
 {
@@ -13,6 +15,8 @@ struct Participant
 	int id_number =0;
 	double race_result =0.0;
 	Participant(int id_number, double race_result,string name,string surname) :id_number(id_number), race_result(race_result),name(name),surname(surname) {};
+	Participant(string name) :name(name){};
+
 };
 //номера участников забега
 int unic_id_number() {
@@ -43,7 +47,8 @@ string generator_name() {
 	if (fs.is_open())
 		while (!fs.eof()) {
 			string str;
-			getline(fs, data_name.emplace_back());
+			getline(fs,str);
+			data_name.emplace_back(str);
 		}
 	else
 		cout << "ERORR";
@@ -60,7 +65,9 @@ string generator_surname() {
 	fs2.open("surname.txt", ios::in);
 	if (fs2.is_open())
 		while (!fs2.eof()) {
-			getline(fs2, data_surname.emplace_back());
+			string str;
+			getline(fs2, str);
+			data_surname.emplace_back(str);
 		}
 	else
 		cout << "ERORR";
@@ -69,21 +76,9 @@ string generator_surname() {
 	return data_surname[rand_surname];
 
 }
-void test() {
-	fstream fs;
-	fs.open("test.txt", ios::in);
-	if (fs.is_open())
-		while (!fs.eof()) {
-			string str;
-			getline(fs, str);
-			cout << str << endl;
-		}
-	else
-		cout << "ERORR";
 
-	fs.close();
 
-}
+
 int main() {
 	srand(time(NULL));
 	system("chcp 1251>nul");
